@@ -46,8 +46,7 @@ def main():
     print(f' - Google Ads   = ${round(google.value):,}')
     print(f' - Facebook Ads = ${round(facebook.value):,}')
     print(f' - Twitter Ads  = ${round(twitter.value):,}')
-
-
+    
 
     # Plot the functions and the results
     fig = plt.figure(figsize=(10, 5), dpi=300)
