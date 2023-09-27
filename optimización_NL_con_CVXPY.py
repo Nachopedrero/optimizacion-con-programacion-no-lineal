@@ -45,3 +45,6 @@ def main():
     print(f' - Google Ads   = ${round(google.value):,}')
     print(f' - Facebook Ads = ${round(facebook.value):,}')
     print(f' - Twitter Ads  = ${round(twitter.value):,}')
+
+if __name__ == '__main__':
+    main()
