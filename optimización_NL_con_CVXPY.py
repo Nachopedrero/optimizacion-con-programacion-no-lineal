@@ -38,6 +38,16 @@ def main():
     prob = cp.Problem(obj, constraint)
     prob.solve(solver='ECOS', verbose=False)
 
+    # Print solution
+    print('='*59 + '\n' + ' '*24 + 'Solution' + ' '*24 + '\n' + '='*59)
+    print(f'Status = {prob.status}')
+    print(f'Returns = ${round(prob.value):,}\n')
+    print('Marketing allocation:')
+    print(f' - Google Ads   = ${round(google.value):,}')
+    print(f' - Facebook Ads = ${round(facebook.value):,}')
+    print(f' - Twitter Ads  = ${round(twitter.value):,}')
+
+
 
     # Plot the functions and the results
     fig = plt.figure(figsize=(10, 5), dpi=300)
@@ -67,14 +77,19 @@ def main():
         _, best_obj = greedy_optimization(TOTAL_BUDGET, alphas, betas, num_iterations)
         best_obj_list.append(best_obj)
 
-    # Print solution
-    print('='*59 + '\n' + ' '*24 + 'Solution' + ' '*24 + '\n' + '='*59)
-    print(f'Status = {prob.status}')
-    print(f'Returns = ${round(prob.value):,}\n')
-    print('Marketing allocation:')
-    print(f' - Google Ads   = ${round(google.value):,}')
-    print(f' - Facebook Ads = ${round(facebook.value):,}')
-    print(f' - Twitter Ads  = ${round(twitter.value):,}')
+    # Plot the results
+    plt.figure(figsize=(10, 5), dpi=300)
+    plt.ticklabel_format(useOffset=False)
+    plt.plot(num_iterations_range, best_obj_list, label='Greedy algorithm')
+    plt.axhline(y=prob.value, color='r', linestyle='--', label='Optimal solution (CVXPY)')
+    plt.xlabel('Number of iterations')
+    plt.xticks(num_iterations_range)
+    plt.xscale("log")
+    plt.ylabel('Best returns ($)')
+    plt.title('Best returns found by the greedy algorithm for different numbers of iterations')
+    plt.legend()
+    plt.show()
+
 
 if __name__ == '__main__':
     main()
