@@ -32,3 +32,16 @@ def main():
     obj = cp.Maximize(alphas[0] + betas[0] * cp.log(google)
                     + alphas[1] + betas[1] * cp.log(facebook)
                     + alphas[2] + betas[2] * cp.log(twitter))
+    
+    # Solve
+    prob = cp.Problem(obj, constraint)
+    prob.solve(solver='ECOS', verbose=False)
+
+    # Print solution
+    print('='*59 + '\n' + ' '*24 + 'Solution' + ' '*24 + '\n' + '='*59)
+    print(f'Status = {prob.status}')
+    print(f'Returns = ${round(prob.value):,}\n')
+    print('Marketing allocation:')
+    print(f' - Google Ads   = ${round(google.value):,}')
+    print(f' - Facebook Ads = ${round(facebook.value):,}')
+    print(f' - Twitter Ads  = ${round(twitter.value):,}')
