@@ -7,6 +7,7 @@ el presupuesto total
 -Nuestro objetivo es maximizar la rentabilidad total, que es la suma de las 
 rentabilidades de cada canal
 """
+
 import cvxpy as cp
 import matplotlib.pyplot as plt
 import numpy as np
