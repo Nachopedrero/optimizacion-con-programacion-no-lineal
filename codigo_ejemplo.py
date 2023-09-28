@@ -25,28 +25,59 @@ def greedy_optimization(TOTAL_BUDGET, alphas, betas, num_iterations=1_000):
     # Return the best allocation and the corresponding objective value
     return (google_budget, facebook_budget, twitter_budget), obj
 
+"""
+Somos una empresa que ha diseñado tres productos muy innovadores en el sector tecnológico.
+Por temas de marketing, sabemos que para lograr la mayor rentabilidad para la empresa, 
+lo mejor es que el producto que vaya a tener más impacto sea el último en ser lanzado.
+Por lo tanto necesitamos saber cual de los siguientes productos debe ser lanzado primero, 
+cual segundo y cual tercero (sabiendo tambien que hay que hacer una inversión inicial
+para lanzaro):
+- Reloj inteligente con asistente personal con IA (WATCH-IA)
+- Teléfono móvil con funciones de ordenador (PHONE-PC)
+- Dron con cámara de alta resolución (DRONE-CAM)
 
+Sabemos que el interes del público está directamente relacionado con una fórmula
+
+    rentabilidad = alpha + beta * log(presupuesto)
+
+Las alphas son las siguientes :
+(-8750.25) - WATCH
+(-9345.60) - PHONE
+(-7999.99) - DRONE
+
+Las betas son las siguientes :
+(8756.23) - WATCH
+(9214.78) - PHONE
+(9805.12) - DRONE
+
+El presupuesto total para el lanzamiento de los tres productos es de 100.000 de euros.
+
+La primera gráfic representa las tres funciones de rentabilidad de cada producto.
+
+La segunda gráfica representa que el algoritmo greedy alcanza la solución más óptima 
+que puede alcanzar la librería cvxpy en menos de 1000 iteraciones.
+"""
 
 def main():
-    TOTAL_BUDGET = 1000000
-    alphas = [-9453.72,-8312.84,-7371.33]
-    betas  = [8256.21,7764.20,7953.36]
+    TOTAL_BUDGET = 100000
+    alphas = [-875.25,-934.60,-799.99]
+    betas  = [876.23,921.78,980.12]
 
     # Linearly spaced numbers
     x = np.linspace(1, TOTAL_BUDGET, TOTAL_BUDGET)
 
     # Variables
-    google   = cp.Variable(pos=True)
-    facebook = cp.Variable(pos=True)
-    twitter  = cp.Variable(pos=True)
+    watch   = cp.Variable(pos=True)
+    phone = cp.Variable(pos=True)
+    drone  = cp.Variable(pos=True)
 
     # Constraint
-    constraint = [google + facebook + twitter <= TOTAL_BUDGET]
+    constraint = [watch + phone + drone <= TOTAL_BUDGET]
 
     # Objective
-    obj = cp.Maximize(alphas[0] + betas[0] * cp.log(google)
-                    + alphas[1] + betas[1] * cp.log(facebook)
-                    + alphas[2] + betas[2] * cp.log(twitter))
+    obj = cp.Maximize(alphas[0] + betas[0] * cp.log(watch)
+                    + alphas[1] + betas[1] * cp.log(phone)
+                    + alphas[2] + betas[2] * cp.log(drone))
     
     # Solve
     prob = cp.Problem(obj, constraint)
@@ -56,23 +87,23 @@ def main():
     print('='*59 + '\n' + ' '*24 + 'Solution' + ' '*24 + '\n' + '='*59)
     print(f'Status = {prob.status}')
     print(f'Returns = ${round(prob.value):,}\n')
-    print('Marketing allocation:')
-    print(f' - Google Ads   = ${round(google.value):,}')
-    print(f' - Facebook Ads = ${round(facebook.value):,}')
-    print(f' - Twitter Ads  = ${round(twitter.value):,}')
+    print('Product allocation:')
+    print(f' - Watch    = ${round(watch.value):,}')
+    print(f' - Phone  = ${round(phone.value):,}')
+    print(f' - Drone   = ${round(drone.value):,}')
     
 
     # Plot the functions and the results
     fig = plt.figure(figsize=(10, 5), dpi=300)
-    plt.plot(x, alphas[0] + betas[0] * np.log(x), color='red', label='Google Ads')
-    plt.plot(x, alphas[1] + betas[1] * np.log(x), color='blue', label='Facebook Ads')
-    plt.plot(x, alphas[2] + betas[2] * np.log(x), color='green', label='Twitter Ads')
+    plt.plot(x, alphas[0] + betas[0] * np.log(x), color='red', label='Watch ')
+    plt.plot(x, alphas[1] + betas[1] * np.log(x), color='blue', label='Phone ')
+    plt.plot(x, alphas[2] + betas[2] * np.log(x), color='green', label='Drone ')
 
     # Plot optimal points
-    plt.scatter([google.value, facebook.value, twitter.value],
-                [alphas[0] + betas[0] * np.log(google.value),
-                alphas[1] + betas[1] * np.log(facebook.value),
-                alphas[2] + betas[2] * np.log(twitter.value)],
+    plt.scatter([watch.value, phone.value, drone.value],
+                [alphas[0] + betas[0] * np.log(watch.value),
+                alphas[1] + betas[1] * np.log(phone.value),
+                alphas[2] + betas[2] * np.log(drone.value)],
                 marker="+", color='black', zorder=10)
 
     plt.xlabel('Budget ($)')
