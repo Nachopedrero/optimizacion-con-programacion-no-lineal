@@ -41,14 +41,14 @@ Sabemos que el interes del público está directamente relacionado con una fórm
     rentabilidad = alpha + beta * log(presupuesto)
 
 Las alphas son las siguientes :
-(-8750.25) - WATCH
-(-9345.60) - PHONE
-(-7999.99) - DRONE
+(-475.25) - WATCH
+(-1234.60) - PHONE
+(-799.99) - DRONE
 
 Las betas son las siguientes :
-(8756.23) - WATCH
-(9214.78) - PHONE
-(9805.12) - DRONE
+(876.23) - WATCH
+(1621.78) - PHONE
+(180.12) - DRONE
 
 El presupuesto total para el lanzamiento de los tres productos es de 100.000 de euros.
 
