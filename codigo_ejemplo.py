@@ -60,8 +60,8 @@ que puede alcanzar la librería cvxpy en menos de 1000 iteraciones.
 
 def main():
     TOTAL_BUDGET = 100000
-    alphas = [-875.25,-934.60,-799.99]
-    betas  = [876.23,921.78,980.12]
+    alphas = [-475.25,-1234.60,-799.99]
+    betas  = [876.23,1621.78,180.12]
 
     # Linearly spaced numbers
     x = np.linspace(1, TOTAL_BUDGET, TOTAL_BUDGET)
