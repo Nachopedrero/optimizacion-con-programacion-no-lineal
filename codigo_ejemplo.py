@@ -50,7 +50,7 @@ Las betas son las siguientes :
 (1621.78) - PHONE
 (180.12) - DRONE
 
-El presupuesto total para el lanzamiento de los tres productos es de 100.000 de euros.
+El presupuesto total para el lanzamiento de los tres productos es de 100.000 de dolares.
 
 La primera gráfic representa las tres funciones de rentabilidad de cada producto.
 
